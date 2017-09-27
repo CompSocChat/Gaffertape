@@ -4,18 +4,19 @@
 #include "../common.hpp"
 
 namespace webserver {
-  enum RequestType { Get, Post };
+
+  class InvalidRequest : public std::exception {};
 
   class Server;
 
   class Request {
     friend Server;
   private:
-    boost::asio::ip::tcp::iostream * stream;
+    boost::asio::ip::tcp::socket * socket;
   public:
-    RequestType type;
+    std::string verb;
     std::string path;
-    std::string Version;
+    std::string version;
     void respond(std::string response);
   };
 
