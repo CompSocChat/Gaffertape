@@ -1,17 +1,22 @@
 #include <boost/asio.hpp>
 using namespace boost::asio;
+using namespace boost::asio::ip;
 
 #include "webserver.hpp"
 
 namespace webserver {
-  Client::Client(ip::tcp::iostream * stream) {
-    _stream = stream;
-  }
+  Client::Client(tcp::iostream * stream) : stream(stream) {}
 
   Client * Server::accept() {
-    ip::tcp::iostream stream;
-    socket.accept(*stream.rdbuf());
+    tcp::iostream stream;
+    socket->accept(*stream.rdbuf());
     return new Client(&stream);
+  }
+
+  Server::Server(tcp::endpoint ep) {
+    service = new io_service();
+    socket = new tcp::acceptor(*service, ep);
+    socket->listen();
   }
 
 }
