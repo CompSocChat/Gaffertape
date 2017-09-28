@@ -64,6 +64,7 @@ namespace webserver {
     RequestHeader header;
     std::string build() const;
     void respond(const Response * response);
+    ~Request();
   };
 
 
@@ -72,9 +73,11 @@ namespace webserver {
     boost::asio::ip::tcp::acceptor * socket;
     boost::asio::io_service * service;
   public:
-    Request * receive();
     USER_ID name;
+    
+    Request * receive();
     Server(USER_ID * name, boost::asio::ip::tcp::endpoint ep);
+    ~Server();
   };
 
 

@@ -59,6 +59,10 @@ namespace webserver {
     socket->close();
   }
 
+  Request::~Request() {
+    delete(socket);
+  }
+
   Server::Server(USER_ID * _name, tcp::endpoint ep) {
     memcpy(&name, _name, sizeof(USER_ID));
     service = new io_service();
@@ -66,7 +70,7 @@ namespace webserver {
     socket->listen();
   }
 
-  //TODO: Implement Server::receive fully
+  //TODO: Implement Server::receive properly
   Request * Server::receive() {
 
     tcp::socket * client = new tcp::socket(*service);
@@ -82,6 +86,11 @@ namespace webserver {
     rec_header >> r->header.verb >> r->header.path >> r->header.version;
 
     return r;
+  }
+
+  Server::~Server() {
+    delete(socket);
+    delete(service);
   }
 
 }
