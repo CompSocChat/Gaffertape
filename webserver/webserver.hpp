@@ -1,6 +1,7 @@
 #pragma once
 
 #include <boost/asio.hpp>
+#include <boost/filesystem.hpp>
 #include <string>
 
 #include "../common.hpp"
@@ -74,11 +75,34 @@ namespace webserver {
     boost::asio::io_service * service;
   public:
     USER_ID name;
-    
+
     Request * receive();
     Server(USER_ID * name, boost::asio::ip::tcp::endpoint ep);
     ~Server();
   };
 
+  class RequestHandler {
+  public:
+    // Should return false when request could not be handled
+    // (i.e. a GET handler on a POST request)
+    // NOTE: Should send an error to the client for a bad request
+    virtual bool handle(Request * request) = 0;
+  };
+
+  class FileGetRequestHandler {
+  private:
+    // The path to the root directory of the webserver
+    std::string path;
+  public:
+    bool handle(Request * request);
+  };
+
+  class FilePostRequestHandler {
+  private:
+    // The path to the root directory of the webserver
+    std::string path;
+  public:
+    bool handle(Request * request);
+  };
 
 }
