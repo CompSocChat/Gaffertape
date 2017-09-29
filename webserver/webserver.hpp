@@ -1,8 +1,9 @@
 #pragma once
 
-#include <boost/asio.hpp>
-#include <boost/filesystem.hpp>
 #include <string>
+#include <functional>
+
+#include <boost/asio.hpp>
 
 #include "../common.hpp"
 
@@ -29,21 +30,23 @@ namespace webserver {
     std::string build() const;
   };
 
-  enum ResponseCode {
+  enum StatusCode {
     // 1xx: Informational
     Continue = 100,
     // 2xx: Success
     Ok = 200,
     // 4xx: Error
     Bad_Request = 400,
-    Not_Found = 404
+    Not_Found = 404,
+    // 5xx: Server Error
+    Internal_Server_Error = 500
   };
 
-  std::ostream & operator<<(std::ostream & s, ResponseCode rc);
+  std::ostream & operator<<(std::ostream & s, StatusCode rc);
 
   class ResponseHeader : public Header {
   public:
-    ResponseCode code;
+    StatusCode code;
     std::string build() const;
   };
 
@@ -64,7 +67,7 @@ namespace webserver {
   public:
     RequestHeader header;
     std::string build() const;
-    void respond(const Response * response);
+    void respond(const Response& response);
     ~Request();
   };
 
@@ -86,23 +89,30 @@ namespace webserver {
     // Should return false when request could not be handled
     // (i.e. a GET handler on a POST request)
     // NOTE: Should send an error to the client for a bad request
-    virtual bool handle(Request * request) = 0;
+    virtual bool handle(Request& request) = 0;
   };
 
-  class FileGetRequestHandler {
-  private:
+  class FileRequestHandler : RequestHandler {
+  protected:
     // The path to the root directory of the webserver
-    std::string path;
+    bool resolve(std::string& path);
+    FileRequestHandler(std::string root) : root(root) {};
   public:
-    bool handle(Request * request);
+    std::string root;
   };
 
-  class FilePostRequestHandler {
-  private:
-    // The path to the root directory of the webserver
-    std::string path;
+  class FileGetRequestHandler : FileRequestHandler {
   public:
-    bool handle(Request * request);
+    bool handle(Request& request);
+    FileGetRequestHandler(std::string root) : FileRequestHandler(root) {};
+  };
+
+  typedef std::function<std::map<std::string, std::string>(std::string)> post_handler;
+  class FilePostRequestHandler : FileRequestHandler {
+  public:
+    const std::map<std::string, post_handler> * funcs;
+    bool handle(Request& request);
+    FilePostRequestHandler(std::string root, const std::map<std::string, post_handler> * funcs) : FileRequestHandler(root), funcs(funcs) {};
   };
 
 }

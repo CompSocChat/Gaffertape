@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
+#include <functional>
 
 #include "webserver/webserver.hpp"
+#include "post.hpp"
 
 using namespace std;
 using namespace webserver;
@@ -12,6 +14,10 @@ int main(int argc, char ** argv) {
   cout << "Bound to http://127.0.0.1:6989" << endl;
   USER_ID name;
   Server * s = new Server(&name, tcp::endpoint(address_v4::loopback(), 6989));
+  FileGetRequestHandler get("/tmp/files");
+  FilePostRequestHandler post("/tmp/files", &post_handlers);
+
+  cout << endl;
 
   while(true) {
     Request * c = s->receive();
@@ -19,10 +25,18 @@ int main(int argc, char ** argv) {
     cout << "Path: '" << c->header.path << "'" << endl;
     cout << "Version: '" << c->header.version << "'" << endl;
 
-    Response r;
-    r.header.code = Ok;
-    r.body = "Hello, World!";
-    c->respond(&r);
+    if (get.handle(*c)) {
+      cout << "Got";
+    //} else if (post.handle(*c)) {
+    //  cout << "Posted";
+    } else {
+      cout << "Bad request";
+      Response response;
+      response.header.code = Bad_Request;
+      c->respond(response);
+    }
+    cout << endl << endl;
+
   }
   return 0;
 }

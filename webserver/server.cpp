@@ -1,5 +1,7 @@
 #define RECEIVE_MAX_LEN 65536
 
+#include <iostream>
+
 #include <boost/tokenizer.hpp>
 using namespace boost;
 
@@ -10,7 +12,6 @@ using namespace boost::asio::ip;
 #include <boost/algorithm/string.hpp>
 using namespace boost::algorithm;
 
-
 using namespace std;
 
 #include "webserver.hpp"
@@ -20,12 +21,14 @@ namespace webserver {
   const char * const delim = "\r\n";
   const char * const hdelim = "\r\n\r\n";
 
-  std::ostream & operator<<(std::ostream & s, ResponseCode rc) {
+  std::ostream & operator<<(std::ostream & s, StatusCode rc) {
     switch(rc) {
-      Continue: s << "Continue"; break;
-      Ok: s << "Ok"; break;
-      Bad_Request: s << "Bad Request"; break;
-      Not_Found: s << "Not Found"; break;
+      case Continue: s << "Continue"; break;
+      case Ok: s << "Ok"; break;
+      case Bad_Request: s << "Bad Request"; break;
+      case Not_Found: s << "Not Found"; break;
+      case Internal_Server_Error: s << "Internal Server Error"; break;
+      default: std::cerr << "Unsupported status code: " << (int) rc << endl;
     }
     return s;
   }
@@ -54,8 +57,8 @@ namespace webserver {
     return header.build() + body;
   }
 
-  void Request::respond(const Response * r) {
-    write(*socket, buffer(r->build()));
+  void Request::respond(const Response& r) {
+    write(*socket, buffer(r.build()));
     socket->close();
   }
 
@@ -91,6 +94,12 @@ namespace webserver {
   Server::~Server() {
     delete(socket);
     delete(service);
+  }
+
+  bool FileRequestHandler::resolve(string & path) {
+    if (path[0] != '/' || (path.find("/.") != string::npos)) { return false; }
+    path = root + path;
+    return true;
   }
 
 }
