@@ -14,11 +14,10 @@ link_directories(${PYTHON_LIBRARY_DIRS})
 
 file(GLOB python_source ${PROJECT_SOURCE_DIR}/python/*.cpp)
 add_library(gaffertape-python ${python_source})
-target_link_libraries(gaffertape-python ${Boost_LIBRARIES})
 
 file(GLOB webserver_source ${PROJECT_SOURCE_DIR}/webserver/*.cpp)
 add_library(gaffertape-webserver ${webserver_source})
-target_link_libraries(gaffertape-webserver ${Boost_LIBRARIES} gaffertape-python)
 
 add_executable(gaffertape main.cpp)
-target_link_libraries(gaffertape ${Boost_LIBRARIES} gaffertape-webserver gaffertape-webserver-post)
+
+target_link_libraries(gaffertape PRIVATE ${Boost_LIBRARIES} gaffertape-webserver gaffertape-python PRIVATE ${PYTHON_LIBRARIES})
