@@ -3,7 +3,6 @@
 #include <functional>
 
 #include "webserver/webserver.hpp"
-#include "post.hpp"
 
 using namespace std;
 using namespace webserver;
@@ -15,7 +14,7 @@ int main(int argc, char ** argv) {
   USER_ID name;
   Server * s = new Server(&name, tcp::endpoint(address_v4::loopback(), 6989));
   FileGetRequestHandler get("/tmp/files");
-  FilePostRequestHandler post("/tmp/files", &post_handlers);
+  FilePostRequestHandler post("/tmp/files");
 
   cout << endl;
 

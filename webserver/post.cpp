@@ -1,7 +1,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "../loader/loader.hpp"
+#include "../loader/all.hpp"
 #include "webserver.hpp"
 
 using namespace std;

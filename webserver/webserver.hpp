@@ -110,9 +110,8 @@ namespace webserver {
   typedef std::function<std::map<std::string, std::string>(std::string)> post_handler;
   class FilePostRequestHandler : FileRequestHandler {
   public:
-    const std::map<std::string, post_handler> * funcs;
     bool handle(Request& request);
-    FilePostRequestHandler(std::string root, const std::map<std::string, post_handler> * funcs) : FileRequestHandler(root), funcs(funcs) {};
+    FilePostRequestHandler(std::string root) : FileRequestHandler(root) {};
   };
 
 }

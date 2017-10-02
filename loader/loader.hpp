@@ -6,25 +6,29 @@
 
 namespace loader {
   class Loader;
-
+  /// A bass class for modules
   class Module {
   public:
-    // Calls a module
+    /// Calls a module
     virtual std::string run(std::string argument) = 0;
+    /// The parent that owns this module
     Loader* parent;
-  }
+    /// The path to the module
+    std::string path;
+  };
   /// A base class for loading modules
   class Loader {
   public:
-    // Registers a loader
+    /// Registers a loader
     static void reg(Loader * loader);
-    // Unregisters a loader
+    /// Unregisters a loader
     static void unreg(std::string extension);
-    // Will return null if the loader could not be found
+    /// Attempts to find a module
+    /// Will return null if the loader could not be found
     static Loader * get(std::string extension);
-    // Loads a module
-    virtual load(std::string path) = 0;
-    // The extension for a loader
-    virtual static std::string extension;
-  }
+    /// Loads a module
+    virtual Module * load(std::string path) = 0;
+    /// The extension for the loader
+    std::string extension;
+  };
 }
