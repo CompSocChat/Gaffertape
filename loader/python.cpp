@@ -1,9 +1,12 @@
-#include "python.hpp"
+#include "loader.hpp"
 
 using namespace boost::python;
 using namespace std;
 
-namespace python {
+namespace loader {
+  class PythonLoader : publ {
+
+  }
   string call(string i) {
     Py_Initialize();
     object main = import("__main__");
