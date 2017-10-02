@@ -3,8 +3,9 @@
 
 namespace loader {
   class PythonLoader : public Loader {
+  public:
     /// Loads a module
-    Module * load(std::string path) = 0;
+    Module * load(std::string path);
   };
 
   class PythonModule : public Module {

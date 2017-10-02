@@ -1,5 +1,6 @@
 #include "python.hpp"
 #include <boost/python.hpp>
+#include <iostream>
 
 using namespace boost::python;
 using namespace std;
@@ -12,9 +13,13 @@ namespace loader {
     PythonModule * ret = new PythonModule();
     ret->parent = this;
     ret->path = path;
-    object main_module = import("__main__");
-    exec_file(str(path), main_module);
-    ret->func = main_module.attr("__dict__").attr("gaffertape");
+    Py_Initialize();
+    object main = import("__main__");
+    object dict = main.attr("__dict__");
+    str pypath = str(path);
+    exec("print('You are a shit programmer')", dict);
+    exec_file(pypath, dict);
+    ret->func = dict["gaffertape"];
     return (Module *) ret;
   }
 }

@@ -3,13 +3,22 @@
 #include <functional>
 
 #include "webserver/webserver.hpp"
+#include "loader/all.hpp"
 
 using namespace std;
+
 using namespace webserver;
+using namespace loader;
+
 using namespace boost::asio;
 using namespace boost::asio::ip;
 
 int main(int argc, char ** argv) {
+  PythonLoader v;
+  Module * mod = v.load("/tmp/mod.py");
+
+  mod->run("hi");
+
   cout << "Bound to http://127.0.0.1:6989" << endl;
   USER_ID name;
   Server * s = new Server(&name, tcp::endpoint(address_v4::loopback(), 6989));
