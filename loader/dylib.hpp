@@ -10,6 +10,8 @@
 /// A macro that can be use to define the gaffertape function:
 /// `GAFFERTAPE(argument_name) { /* ... */ }`
 #define GAFFERTAPE(arg) extern "C" BOOST_SYMBOL_EXPORT std::string gaffertape(std::string arg)
+#define GAFFERTAPE_C(arg) extern "C" BOOST_SYMBOL_EXPORT char * gaffertape_c(char * arg)
+
 
 namespace loader {
   /// Loads a dso or a dll, and runs std::string gaffertape(std::string) or char * gaffertape(char *)
@@ -17,6 +19,8 @@ namespace loader {
   public:
     /// Loads a module
     Module * load(std::string path);
+    /// A simple constructor for the loader
+    DyLibLoader(std::string extension) : Loader(extension) {}
   };
 
   /// A dso or a dll
@@ -30,3 +34,4 @@ namespace loader {
     std::string run(const std::string argument);
   };
 }
+REG_LOADER(new loader::DyLibLoader("dll"))

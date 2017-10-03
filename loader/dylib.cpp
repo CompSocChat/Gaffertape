@@ -5,6 +5,8 @@ using namespace std;
 
 using namespace boost::dll;
 
+REG_LOADER(new loader::DyLibLoader("so"))
+REG_LOADER(new loader::DyLibLoader("dll"))
 
 namespace loader {
   Module * DyLibLoader::load(string path) {
@@ -12,9 +14,14 @@ namespace loader {
     try {
       ret->func = import<string(const string)>(path, "gaffertape");
     } catch (boost::system::system_error& e) {
-      cout << "char **" << endl;
-      function<char*(const char*)> c_f = import<char*(const char*)>(path, "gaffertape");
-      ret->func = function([=](string s) { return string(c_f(s.c_str())); });
+      cout << "char *" << endl;
+      function<char*(const char*)> c_f = import<char*(const char*)>(path, "gaffertape_c");
+      ret->func = function([=](string s) {
+        char * str = c_f(s.c_str());
+        string ret(str);
+        free(str);
+        return ret;
+      });
     }
     return ret;
   }

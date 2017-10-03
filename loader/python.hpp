@@ -1,3 +1,5 @@
+#pragma once
+
 #include "loader.hpp"
 #include <boost/python.hpp>
 
@@ -7,6 +9,7 @@ namespace loader {
   public:
     /// Loads a python file
     Module * load(std::string path);
+    PythonLoader(std::string extension) : Loader(extension) {}
   };
 
   class PythonModule : public Module {

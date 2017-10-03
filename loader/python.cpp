@@ -5,6 +5,8 @@
 using namespace boost::python;
 using namespace std;
 
+REG_LOADER(new loader::PythonLoader(".py"))
+
 namespace loader {
   string PythonModule::run(string i) {
     return extract<std::string>(func(i));

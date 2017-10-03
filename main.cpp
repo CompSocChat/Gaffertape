@@ -14,8 +14,7 @@ using namespace boost::asio;
 using namespace boost::asio::ip;
 
 int main(int argc, char ** argv) {
-  DyLibLoader v;
-  Module * mod = v.load("bin/libtestmod.so");
+  Module * mod = Loader::exec("bin/libtestmod.so");
 
   cout << endl << "Returned " << mod->run("You smell") << endl;
 

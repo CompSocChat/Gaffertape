@@ -1,8 +1,15 @@
 #pragma once
+#include <iostream>
 
 #include <boost/python.hpp>
 #include <string>
 #include <functional>
+
+#define __REG_LOADER_CONCAT(counter) __reg_loader_  ## counter
+#define __REG_LOADER_NAME(counter) __REG_LOADER_CONCAT(counter)
+#define REG_A __REG_LOADER_NAME(__COUNTER__)
+#define REG_B __REG_LOADER_NAME(__COUNTER__)
+#define REG_LOADER(LOADER) const loader::internal::RegLoader __REG_LOADER_NAME(__COUNTER__)(LOADER);
 
 namespace loader {
   class Loader;
@@ -20,15 +27,29 @@ namespace loader {
   class Loader {
   public:
     /// Registers a loader
-    static void reg(const Loader* loader);
+    static void reg(Loader* loader);
     /// Unregisters a loader
     static void unreg(const std::string extension);
     /// Attempts to find a module
-    /// Will return null if the loader could not be found
     static Loader * get(const std::string extension);
+    /// Big super function of death. Does the following
+    /// 1. Tries to work out the extension
+    /// 2. Attempts to get the correct Loader
+    /// 3. Attempts to load the module
+    static Module * exec(const std::string path);
     /// Loads a module
     virtual Module * load(const std::string path) = 0;
     /// The extension for the loader
     std::string extension;
+    /// The constructor for the base class
+    Loader(std::string extension) : extension(extension) {}
   };
+  namespace internal {
+    class RegLoader {
+    public:
+      RegLoader(loader::Loader* loader) {
+        loader::Loader::reg(loader);
+      }
+    };
+  }
 }

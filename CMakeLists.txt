@@ -31,11 +31,15 @@ add_library(gaffertape-load ${load_source})
 file(GLOB webserver_source ${PROJECT_SOURCE_DIR}/webserver/*.cpp)
 add_library(gaffertape-webserver ${webserver_source})
 
-add_executable(gaffertape main.cpp)
+add_executable(gaffertape ${PROJECT_SOURCE_DIR}/main.cpp)
 
 set(links gaffertape-webserver gaffertape-load ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} ${libdl})
 
-target_link_libraries(gaffertape ${links} ${links})
+target_link_libraries(gaffertape ${links})
 
-add_library(testmod SHARED testmod.cpp)
-target_link_libraries(testmod ${links})
+# Test stuff
+##enable_testing()
+##
+##add_executable(testmod ${PROJECT_SOURCE_DIR}/main.cpp)
+##add_dependencies(testmod ${PROJECT_SOURCE_DIR}/testmod/* ${links})
+##add_test(testmod testmod)
