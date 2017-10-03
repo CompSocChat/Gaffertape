@@ -17,7 +17,6 @@ namespace loader {
     object main = import("__main__");
     object dict = main.attr("__dict__");
     str pypath = str(path);
-    exec("print('You are a shit programmer')", dict);
     exec_file(pypath, dict);
     ret->func = dict["gaffertape"];
     return (Module *) ret;

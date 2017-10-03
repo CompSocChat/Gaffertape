@@ -14,10 +14,10 @@ using namespace boost::asio;
 using namespace boost::asio::ip;
 
 int main(int argc, char ** argv) {
-  PythonLoader v;
-  Module * mod = v.load("/tmp/mod.py");
+  DyLibLoader v;
+  Module * mod = v.load("bin/libtestmod.so");
 
-  mod->run("hi");
+  cout << endl << "Returned " << mod->run("You smell") << endl;
 
   cout << "Bound to http://127.0.0.1:6989" << endl;
   USER_ID name;

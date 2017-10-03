@@ -20,14 +20,14 @@ namespace loader {
   class Loader {
   public:
     /// Registers a loader
-    static void reg(Loader * loader);
+    static void reg(const Loader* loader);
     /// Unregisters a loader
-    static void unreg(std::string extension);
+    static void unreg(const std::string extension);
     /// Attempts to find a module
     /// Will return null if the loader could not be found
-    static Loader * get(std::string extension);
+    static Loader * get(const std::string extension);
     /// Loads a module
-    virtual Module * load(std::string path) = 0;
+    virtual Module * load(const std::string path) = 0;
     /// The extension for the loader
     std::string extension;
   };

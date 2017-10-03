@@ -16,11 +16,12 @@ set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_LIBS OFF)
 
 if(UNIX)
+  set(libdl dl)
   set(pythboost python-py${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
 else()
   set(pythboost python${PYTHON_VERSION_MAJOR})
 endif()
-find_package(Boost REQUIRED COMPONENTS system ${pythboost})
+find_package(Boost REQUIRED COMPONENTS system filesystem ${pythboost})
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
@@ -32,6 +33,9 @@ add_library(gaffertape-webserver ${webserver_source})
 
 add_executable(gaffertape main.cpp)
 
-set(links gaffertape-webserver gaffertape-load ${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
+set(links gaffertape-webserver gaffertape-load ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} ${libdl})
 
 target_link_libraries(gaffertape ${links} ${links})
+
+add_library(testmod SHARED testmod.cpp)
+target_link_libraries(testmod ${links})
