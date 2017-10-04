@@ -1,0 +1,4 @@
+<map id="webserver::Header" name="webserver::Header">
+<area shape="rect" id="node2" href="$classwebserver_1_1_request_header.html" title="webserver::RequestHeader" alt="" coords="5,80,187,107"/>
+<area shape="rect" id="node3" href="$classwebserver_1_1_response_header.html" title="webserver::ResponseHeader" alt="" coords="211,80,402,107"/>
+</map>

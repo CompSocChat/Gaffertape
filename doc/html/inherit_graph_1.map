@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classloader_1_1_loader.html" title="A base class for loading modules. " alt="" coords="5,31,109,57"/>
+<area shape="rect" id="node2" href="$classloader_1_1_dy_lib_loader.html" title="Loads a dso or a dll, and runs std::string gaffertape(std::string) or char * gaffertape(char *) ..." alt="" coords="161,5,299,32"/>
+<area shape="rect" id="node3" href="$classloader_1_1_python_loader.html" title="Loads a python file and runs def gaffertape(arg) " alt="" coords="157,56,303,83"/>
+</map>

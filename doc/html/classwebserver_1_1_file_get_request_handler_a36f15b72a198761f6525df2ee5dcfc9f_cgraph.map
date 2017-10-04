@@ -1,0 +1,4 @@
+<map id="webserver::FileGetRequestHandler::handle" name="webserver::FileGetRequestHandler::handle">
+<area shape="rect" id="node2" href="$classwebserver_1_1_request.html#a2820739790bf6f91797166609f71ce79" title="webserver::Request\l::respond" alt="" coords="235,5,373,47"/>
+<area shape="rect" id="node3" href="$classwebserver_1_1_response.html#ad93a1d33c68e51a35af71ac91643373f" title="webserver::Response\l::build" alt="" coords="421,5,571,47"/>
+</map>

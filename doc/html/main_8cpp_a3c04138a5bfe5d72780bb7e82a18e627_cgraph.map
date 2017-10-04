@@ -1,0 +1,6 @@
+<map id="main" name="main">
+<area shape="rect" id="node2" href="$classloader_1_1_module.html#a7f04ecde6c9510d840c8c1ebea3b42d4" title="Calls a module. " alt="" coords="107,5,240,32"/>
+<area shape="rect" id="node3" href="$classwebserver_1_1_server.html#a43bde38d6363e90c723040419919156e" title="webserver::Server::\lreceive" alt="" coords="105,57,241,98"/>
+<area shape="rect" id="node4" href="$classwebserver_1_1_request.html#a2820739790bf6f91797166609f71ce79" title="webserver::Request\l::respond" alt="" coords="104,122,243,163"/>
+<area shape="rect" id="node5" href="$classwebserver_1_1_response.html#ad93a1d33c68e51a35af71ac91643373f" title="webserver::Response\l::build" alt="" coords="291,122,440,163"/>
+</map>

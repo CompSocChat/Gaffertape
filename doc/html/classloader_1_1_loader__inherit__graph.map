@@ -1,0 +1,4 @@
+<map id="loader::Loader" name="loader::Loader">
+<area shape="rect" id="node2" href="$classloader_1_1_dy_lib_loader.html" title="Loads a dso or a dll, and runs std::string gaffertape(std::string) or char * gaffertape(char *) ..." alt="" coords="5,80,144,107"/>
+<area shape="rect" id="node3" href="$classloader_1_1_python_loader.html" title="Loads a python file and runs def gaffertape(arg) " alt="" coords="169,80,314,107"/>
+</map>

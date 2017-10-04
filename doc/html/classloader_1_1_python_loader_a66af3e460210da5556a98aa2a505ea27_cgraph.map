@@ -1,0 +1,7 @@
+<map id="loader::PythonLoader::load" name="loader::PythonLoader::load">
+<area shape="rect" id="node2" href="$main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="main" alt="" coords="199,64,249,91"/>
+<area shape="rect" id="node3" href="$classloader_1_1_module.html#a7f04ecde6c9510d840c8c1ebea3b42d4" title="Calls a module. " alt="" coords="300,5,433,32"/>
+<area shape="rect" id="node4" href="$classwebserver_1_1_server.html#a43bde38d6363e90c723040419919156e" title="webserver::Server::\lreceive" alt="" coords="299,57,435,98"/>
+<area shape="rect" id="node5" href="$classwebserver_1_1_request.html#a2820739790bf6f91797166609f71ce79" title="webserver::Request\l::respond" alt="" coords="297,122,436,163"/>
+<area shape="rect" id="node6" href="$classwebserver_1_1_response.html#ad93a1d33c68e51a35af71ac91643373f" title="webserver::Response\l::build" alt="" coords="484,122,633,163"/>
+</map>
